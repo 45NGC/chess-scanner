@@ -4,6 +4,7 @@ import sys
 import os
 
 
+
 def chessboard_cropper(image_path):
     # Load the image
     image = cv2.imread(image_path)
@@ -52,50 +53,91 @@ def chessboard_cropper(image_path):
 
 
 
+def analyse_board(chessboard_image, target_size=50, margin_ratio=0.1, templates_dir="square_templates"):
 
+	# Load templates
+	templates = {}
+	for filename in os.listdir(templates_dir):
+		if filename.endswith(".png") or filename.endswith(".jpg"):
+			name = os.path.splitext(filename)[0]
+			template = cv2.imread(os.path.join(templates_dir, filename), cv2.IMREAD_GRAYSCALE)
+			template = cv2.resize(template, (target_size, target_size))
+			_, template_bw = cv2.threshold(template, 128, 255, cv2.THRESH_BINARY)
+			templates[name] = template_bw
 
+	board_array = np.zeros((8, 8), dtype=int)
 
-def save_chessboard_squares(chessboard_image, output_dir="squares", target_size=50, margin_ratio=0.1):
-    # Create output directory if it doesn't exist
-    if not os.path.exists(output_dir):
-        os.makedirs(output_dir)
-    
-    # Get the dimensions of the chessboard
-    h, w = chessboard_image.shape[:2]
-    
-    # Calculate the size of each square based on the chessboard dimensions
-    square_height = h // 8
-    square_width = w // 8
-    
-    # Calculate margin to remove (percentage of square size)
-    margin_h = int(square_height * margin_ratio)
-    margin_w = int(square_width * 0.2)  # Use the same ratio for both dimensions
-    
-    # Iterate over each row and column
-    for row in range(8):
-        for col in range(8):
-            # Calculate the coordinates of the square with margin
-            y1 = row * square_height + margin_h
-            y2 = (row + 1) * square_height - margin_h
-            x1 = col * square_width + margin_w
-            x2 = (col + 1) * square_width - margin_w
-            
-            # Ensure coordinates are within bounds
-            y1 = max(0, y1)
-            y2 = min(h, y2)
-            x1 = max(0, x1)
-            x2 = min(w, x2)
-            
-            # Extract the square (with margins removed)
-            square = chessboard_image[y1:y2, x1:x2]
-            
-            # Resize the square to the target size
-            square_resized = cv2.resize(square, (target_size, target_size))
-            
-            # Save the square image
-            square_filename = os.path.join(output_dir, f"square_{row}_{col}.png")
-            cv2.imwrite(square_filename, square_resized)
-            
+	height, width = chessboard_image.shape[:2]
+	square_height = height // 8
+	square_width = width // 8
+	margin_h = int(square_height * margin_ratio)
+	margin_w = int(square_width * 0.2)
+
+	for row in range(8):
+		for col in range(8):
+			# Square coordinates
+			y1 = row * square_height + margin_h
+			y2 = (row + 1) * square_height - margin_h
+			x1 = col * square_width + margin_w
+			x2 = (col + 1) * square_width - margin_w
+
+			square = chessboard_image[y1:y2, x1:x2]
+
+			# Resize square
+			square_resized = cv2.resize(square, (target_size, target_size))
+
+			# Convert to grayscale
+			gray_square = cv2.cvtColor(square_resized, cv2.COLOR_BGR2GRAY)
+
+			# Convert square to binary (black and white)
+			_, square_bw = cv2.threshold(gray_square, 128, 255, cv2.THRESH_BINARY)
+
+			# Compare with templates
+			best_match = None
+			best_score = float("inf")
+			for name, template in templates.items():
+				diff = cv2.absdiff(square_bw, template)
+				score = np.sum(diff)
+				if score < best_score:
+					best_score = score
+					best_match = name
+
+			
+			mapping = {
+				"empty_w": 0,
+				"empty_b": 0,
+				"pawn_ww": 1,
+				"pawn_wb": 1,
+				"pawn_bb": -1,
+				"pawn_bw": -1,
+				"rook_ww": 4,
+				"rook_wb": 4,
+				"rook_bb": -4,
+				"rook_bw": -4,
+				"queen_ww": 5,
+				"queen_wb": 5,
+				"queen_bb": -5,
+				"queen_bw": -5,
+				"bishop_ww": 3,
+				"bishop_wb": 3,
+				"bishop_bb": -3,
+				"bishop_bw": -3,
+				"knight_ww": 2,
+				"knight_wb": 2,
+				"knight_bb": -2,
+				"knight_bw": -2,
+				"king_ww": 6,
+				"king_wb": 6,
+				"king_bb": -6,
+				"king_bw": -6,
+			}
+
+			board_array[row, col] = mapping.get(best_match, 0)
+
+	print(board_array)
+	return board_array
+		
+	        
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
@@ -106,12 +148,15 @@ if __name__ == "__main__":
     input_path = sys.argv[1]
     try:
         # Step 1: Crop the chessboard
-        chessboard = chessboard_cropper(input_path)
-        cv2.imwrite("cropped_chessboard.png", chessboard)
+        cropped_chessboard = chessboard_cropper(input_path)
+        cv2.imwrite("cropped_chessboard.png", cropped_chessboard)
         print("Cropped chessboard saved as 'cropped_chessboard.png'")
         
-        # Step 2: Save all squares
-        save_chessboard_squares(chessboard, "squares")
-        print("All squares saved in the 'squares' directory.")
+        # Step 2: Analyse chessboard 
+        piece_positions = analyse_board(cropped_chessboard)
+
+		# TODO:
+		# Step 3: Convert array to FEN string
+            
     except Exception as e:
         print(f"Error: {e}")
