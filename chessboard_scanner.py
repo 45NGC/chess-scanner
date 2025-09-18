@@ -136,6 +136,36 @@ def analyse_board(chessboard_image, target_size=50, margin_ratio=0.1, templates_
 
 	print(board_array)
 	return board_array
+
+
+def array_to_fen(board: np.ndarray) -> str:
+    piece_map = {
+        1: "P", 2: "N", 3: "B", 4: "R", 5: "Q", 6: "K",
+        -1: "p", -2: "n", -3: "b", -4: "r", -5: "q", -6: "k",
+        0: None
+    }
+    
+    fen_rows = []
+    for row in board:
+        fen_row = ""
+        empty_count = 0
+        for cell in row:
+            piece = piece_map[cell]
+            if piece is None:
+                empty_count += 1
+            else:
+                if empty_count > 0:
+                    fen_row += str(empty_count)
+                    empty_count = 0
+                fen_row += piece
+        if empty_count > 0:
+            fen_row += str(empty_count)
+        fen_rows.append(fen_row)
+    
+    #TODO: add options to control castling (" w KQkq - 0 1")
+    fen = "/".join(fen_rows)
+    return fen
+
 		
 	        
 
@@ -155,8 +185,9 @@ if __name__ == "__main__":
         # Step 2: Analyse chessboard 
         piece_positions = analyse_board(cropped_chessboard)
 
-		# TODO:
 		# Step 3: Convert array to FEN string
+        fen = array_to_fen(piece_positions)
+        print(fen)
             
     except Exception as e:
         print(f"Error: {e}")
