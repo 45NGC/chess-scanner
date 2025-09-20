@@ -9,6 +9,8 @@ test_image8.png:
 <img width="938" height="970" alt="image" src="https://github.com/user-attachments/assets/05524476-0ac5-4c80-b761-92d47b3329ac" />
 
 
+---
+
 
 python3 chessboard_scanner.py "test_images/test_image8.png"
 
