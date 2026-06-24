@@ -1,0 +1,11 @@
+{
+  "@@locale": "en",
+  "appTitle": "Chess Scanner",
+  "homeHeadline": "Import a chessboard image",
+  "homeDescription": "Scan digital chessboards and book diagrams, then convert the position into FEN for analysis.",
+  "homePrimaryAction": "Choose image",
+  "homeSecondaryAction": "Paste screenshot",
+  "homeStatusTitle": "Project bootstrap complete",
+  "homeStatusBody": "The official Flutter base is ready. The next steps are board detection, square extraction, and assisted correction for uncertain pieces.",
+  "homeComingSoon": "This action will be connected in the next development step."
+}
