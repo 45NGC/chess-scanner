@@ -128,23 +128,29 @@ abstract class AppLocalizations {
   /// **'Paste screenshot'**
   String get homeSecondaryAction;
 
-  /// No description provided for @homeStatusTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Project bootstrap complete'**
-  String get homeStatusTitle;
-
-  /// No description provided for @homeStatusBody.
-  ///
-  /// In en, this message translates to:
-  /// **'The official Flutter base is ready. The next steps are board detection, square extraction, and assisted correction for uncertain pieces.'**
-  String get homeStatusBody;
-
   /// No description provided for @homeComingSoon.
   ///
   /// In en, this message translates to:
   /// **'This action will be connected in the next development step.'**
   String get homeComingSoon;
+
+  /// No description provided for @languageMenuTooltip.
+  ///
+  /// In en, this message translates to:
+  /// **'Change language'**
+  String get languageMenuTooltip;
+
+  /// No description provided for @languageEnglish.
+  ///
+  /// In en, this message translates to:
+  /// **'English'**
+  String get languageEnglish;
+
+  /// No description provided for @languageSpanish.
+  ///
+  /// In en, this message translates to:
+  /// **'Spanish'**
+  String get languageSpanish;
 }
 
 class _AppLocalizationsDelegate

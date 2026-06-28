@@ -5,7 +5,8 @@
   "homeDescription": "Escanea tableros digitales y diagramas de libros, y convierte la posicion en FEN para analizarla.",
   "homePrimaryAction": "Elegir imagen",
   "homeSecondaryAction": "Pegar captura",
-  "homeStatusTitle": "Base del proyecto preparada",
-  "homeStatusBody": "La base oficial de Flutter ya esta lista. Los siguientes pasos son detectar el tablero, separar las casillas y corregir piezas dudosas con ayuda del usuario.",
-  "homeComingSoon": "Esta accion se conectara en el siguiente paso de desarrollo."
+  "homeComingSoon": "Esta accion se conectara en el siguiente paso de desarrollo.",
+  "languageMenuTooltip": "Cambiar idioma",
+  "languageEnglish": "Ingles",
+  "languageSpanish": "Espanol"
 }

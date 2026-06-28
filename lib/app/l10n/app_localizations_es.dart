@@ -25,13 +25,15 @@ class AppLocalizationsEs extends AppLocalizations {
   String get homeSecondaryAction => 'Pegar captura';
 
   @override
-  String get homeStatusTitle => 'Base del proyecto preparada';
-
-  @override
-  String get homeStatusBody =>
-      'La base oficial de Flutter ya esta lista. Los siguientes pasos son detectar el tablero, separar las casillas y corregir piezas dudosas con ayuda del usuario.';
-
-  @override
   String get homeComingSoon =>
       'Esta accion se conectara en el siguiente paso de desarrollo.';
+
+  @override
+  String get languageMenuTooltip => 'Cambiar idioma';
+
+  @override
+  String get languageEnglish => 'Ingles';
+
+  @override
+  String get languageSpanish => 'Espanol';
 }
