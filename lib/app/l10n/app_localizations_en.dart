@@ -12,21 +12,29 @@ class AppLocalizationsEn extends AppLocalizations {
   String get appTitle => 'Chess Scanner';
 
   @override
-  String get homeHeadline => 'Import a chessboard image';
+  String get homeHeadline => 'Scan a chess position';
 
   @override
   String get homeDescription =>
-      'Scan digital chessboards and book diagrams, then convert the position into FEN for analysis.';
+      'Point your camera at a digital chessboard or a printed diagram, or choose an image. Review the recognized position and export it as FEN.';
 
   @override
-  String get homePrimaryAction => 'Choose image';
+  String get homePrivacyDescription =>
+      'Designed to recognize pieces on your device, without an internet connection or uploading your images. No need to teach it the pieces first.';
 
   @override
-  String get homeSecondaryAction => 'Paste screenshot';
+  String get homeDevelopmentStatus =>
+      'In development: image import, camera scanning and piece recognition are not available yet.';
 
   @override
-  String get homeComingSoon =>
-      'This action will be connected in the next development step.';
+  String get homeCameraAction => 'Scan with camera';
+
+  @override
+  String get homeImportAction => 'Choose image';
+
+  @override
+  String get homeNextStep =>
+      'First milestone: recognize a cropped board from an image on your device. Automatic camera capture will follow.';
 
   @override
   String get languageMenuTooltip => 'Change language';

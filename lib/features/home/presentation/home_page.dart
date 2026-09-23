@@ -4,10 +4,7 @@ import '../../../app/locale/app_locale_controller.dart';
 import '../../../app/l10n/app_localizations.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({
-    required this.localeController,
-    super.key,
-  });
+  const HomePage({required this.localeController, super.key});
 
   final AppLocaleController localeController;
 
@@ -38,7 +35,7 @@ class HomePage extends StatelessWidget {
         ],
       ),
       body: SafeArea(
-        child: Padding(
+        child: SingleChildScrollView(
           padding: const EdgeInsets.all(24),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -54,31 +51,42 @@ class HomePage extends StatelessWidget {
                 localizations.homeDescription,
                 style: theme.textTheme.bodyLarge?.copyWith(height: 1.5),
               ),
+              const SizedBox(height: 16),
+              Text(
+                localizations.homePrivacyDescription,
+                style: theme.textTheme.bodyMedium?.copyWith(height: 1.5),
+              ),
               const SizedBox(height: 24),
+              Card(
+                child: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Text(
+                    localizations.homeDevelopmentStatus,
+                    style: theme.textTheme.bodyMedium,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 16),
               FilledButton.icon(
-                onPressed: () => _showComingSoon(context, localizations),
-                icon: const Icon(Icons.image_search_rounded),
-                label: Text(localizations.homePrimaryAction),
+                onPressed: null,
+                icon: const Icon(Icons.camera_alt_outlined),
+                label: Text(localizations.homeCameraAction),
               ),
               const SizedBox(height: 12),
               OutlinedButton.icon(
-                onPressed: () => _showComingSoon(context, localizations),
-                icon: const Icon(Icons.content_paste_search_rounded),
-                label: Text(localizations.homeSecondaryAction),
+                onPressed: null,
+                icon: const Icon(Icons.image_outlined),
+                label: Text(localizations.homeImportAction),
+              ),
+              const SizedBox(height: 16),
+              Text(
+                localizations.homeNextStep,
+                style: theme.textTheme.bodyMedium?.copyWith(height: 1.5),
               ),
             ],
           ),
         ),
       ),
-    );
-  }
-
-  void _showComingSoon(
-    BuildContext context,
-    AppLocalizations localizations,
-  ) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(localizations.homeComingSoon)),
     );
   }
 }

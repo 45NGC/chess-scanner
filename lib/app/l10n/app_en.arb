@@ -1,11 +1,13 @@
 {
   "@@locale": "en",
   "appTitle": "Chess Scanner",
-  "homeHeadline": "Import a chessboard image",
-  "homeDescription": "Scan digital chessboards and book diagrams, then convert the position into FEN for analysis.",
-  "homePrimaryAction": "Choose image",
-  "homeSecondaryAction": "Paste screenshot",
-  "homeComingSoon": "This action will be connected in the next development step.",
+  "homeHeadline": "Scan a chess position",
+  "homeDescription": "Point your camera at a digital chessboard or a printed diagram, or choose an image. Review the recognized position and export it as FEN.",
+  "homePrivacyDescription": "Designed to recognize pieces on your device, without an internet connection or uploading your images. No need to teach it the pieces first.",
+  "homeDevelopmentStatus": "In development: image import, camera scanning and piece recognition are not available yet.",
+  "homeCameraAction": "Scan with camera",
+  "homeImportAction": "Choose image",
+  "homeNextStep": "First milestone: recognize a cropped board from an image on your device. Automatic camera capture will follow.",
   "languageMenuTooltip": "Change language",
   "languageEnglish": "English",
   "languageSpanish": "Spanish"

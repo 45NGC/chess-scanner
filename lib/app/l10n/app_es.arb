@@ -1,12 +1,14 @@
 {
   "@@locale": "es",
   "appTitle": "Chess Scanner",
-  "homeHeadline": "Importa una imagen del tablero",
-  "homeDescription": "Escanea tableros digitales y diagramas de libros, y convierte la posicion en FEN para analizarla.",
-  "homePrimaryAction": "Elegir imagen",
-  "homeSecondaryAction": "Pegar captura",
-  "homeComingSoon": "Esta accion se conectara en el siguiente paso de desarrollo.",
+  "homeHeadline": "Escanea una posición de ajedrez",
+  "homeDescription": "Apunta con la cámara a un tablero digital o a un diagrama impreso, o elige una imagen. Revisa la posición reconocida y expórtala como FEN.",
+  "homePrivacyDescription": "Diseñada para reconocer las piezas en tu dispositivo, sin conexión y sin subir tus imágenes. No tendrás que enseñarle las piezas antes de usarla.",
+  "homeDevelopmentStatus": "En desarrollo: la importación de imágenes, el escaneo con cámara y el reconocimiento de piezas todavía no están disponibles.",
+  "homeCameraAction": "Escanear con cámara",
+  "homeImportAction": "Elegir imagen",
+  "homeNextStep": "Primer objetivo: reconocer un tablero recortado de una imagen en tu dispositivo. Después llegará la captura automática con cámara.",
   "languageMenuTooltip": "Cambiar idioma",
-  "languageEnglish": "Ingles",
-  "languageSpanish": "Espanol"
+  "languageEnglish": "Inglés",
+  "languageSpanish": "Español"
 }

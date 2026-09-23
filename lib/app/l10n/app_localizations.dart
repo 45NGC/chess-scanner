@@ -107,32 +107,44 @@ abstract class AppLocalizations {
   /// No description provided for @homeHeadline.
   ///
   /// In en, this message translates to:
-  /// **'Import a chessboard image'**
+  /// **'Scan a chess position'**
   String get homeHeadline;
 
   /// No description provided for @homeDescription.
   ///
   /// In en, this message translates to:
-  /// **'Scan digital chessboards and book diagrams, then convert the position into FEN for analysis.'**
+  /// **'Point your camera at a digital chessboard or a printed diagram, or choose an image. Review the recognized position and export it as FEN.'**
   String get homeDescription;
 
-  /// No description provided for @homePrimaryAction.
+  /// No description provided for @homePrivacyDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Designed to recognize pieces on your device, without an internet connection or uploading your images. No need to teach it the pieces first.'**
+  String get homePrivacyDescription;
+
+  /// No description provided for @homeDevelopmentStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'In development: image import, camera scanning and piece recognition are not available yet.'**
+  String get homeDevelopmentStatus;
+
+  /// No description provided for @homeCameraAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Scan with camera'**
+  String get homeCameraAction;
+
+  /// No description provided for @homeImportAction.
   ///
   /// In en, this message translates to:
   /// **'Choose image'**
-  String get homePrimaryAction;
+  String get homeImportAction;
 
-  /// No description provided for @homeSecondaryAction.
+  /// No description provided for @homeNextStep.
   ///
   /// In en, this message translates to:
-  /// **'Paste screenshot'**
-  String get homeSecondaryAction;
-
-  /// No description provided for @homeComingSoon.
-  ///
-  /// In en, this message translates to:
-  /// **'This action will be connected in the next development step.'**
-  String get homeComingSoon;
+  /// **'First milestone: recognize a cropped board from an image on your device. Automatic camera capture will follow.'**
+  String get homeNextStep;
 
   /// No description provided for @languageMenuTooltip.
   ///

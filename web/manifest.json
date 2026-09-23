@@ -1,11 +1,11 @@
 {
-    "name": "chess_scanner",
-    "short_name": "chess_scanner",
+    "name": "Chess Scanner",
+    "short_name": "Chess Scanner",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "Mobile and web Flutter app that scans digital chessboards and chess book diagrams, extracting positions and converting them to FEN notation.",
+    "description": "Chess Scanner: a Flutter app in development for on-device recognition of digital chessboards and printed diagrams, with camera capture and FEN export.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [
