@@ -113,19 +113,19 @@ abstract class AppLocalizations {
   /// No description provided for @homeDescription.
   ///
   /// In en, this message translates to:
-  /// **'Point your camera at a digital chessboard or a printed diagram, or choose an image. Review the recognized position and export it as FEN.'**
+  /// **'Choose a screenshot or a phone photo of a virtual chessboard. Recognize the position with BoardSnap and review the pieces.'**
   String get homeDescription;
 
   /// No description provided for @homePrivacyDescription.
   ///
   /// In en, this message translates to:
-  /// **'Designed to recognize pieces on your device, without an internet connection or uploading your images. No need to teach it the pieces first.'**
+  /// **'Recognition requires an internet connection and sends the selected image to your configured BoardSnap server.'**
   String get homePrivacyDescription;
 
   /// No description provided for @homeDevelopmentStatus.
   ///
   /// In en, this message translates to:
-  /// **'In development: image import, camera scanning and piece recognition are not available yet.'**
+  /// **'Image import and piece review are available. Live camera scanning, complete FEN export and printed diagrams are not available yet.'**
   String get homeDevelopmentStatus;
 
   /// No description provided for @homeCameraAction.
@@ -143,7 +143,7 @@ abstract class AppLocalizations {
   /// No description provided for @homeNextStep.
   ///
   /// In en, this message translates to:
-  /// **'First milestone: recognize a cropped board from an image on your device. Automatic camera capture will follow.'**
+  /// **'Choose an image, indicate its type and which side is at the bottom, then review the recognized board.'**
   String get homeNextStep;
 
   /// No description provided for @languageMenuTooltip.
@@ -163,6 +163,150 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Spanish'**
   String get languageSpanish;
+
+  /// No description provided for @scanTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Recognize with BoardSnap'**
+  String get scanTitle;
+
+  /// No description provided for @scanUploadNotice.
+  ///
+  /// In en, this message translates to:
+  /// **'Pressing Recognize sends this image to the configured BoardSnap server. Phone photographs are experimental; review every piece.'**
+  String get scanUploadNotice;
+
+  /// No description provided for @scanInputType.
+  ///
+  /// In en, this message translates to:
+  /// **'Image type'**
+  String get scanInputType;
+
+  /// No description provided for @scanDigital.
+  ///
+  /// In en, this message translates to:
+  /// **'Screenshot'**
+  String get scanDigital;
+
+  /// No description provided for @scanPhoto.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone photo of a screen'**
+  String get scanPhoto;
+
+  /// No description provided for @scanOrientation.
+  ///
+  /// In en, this message translates to:
+  /// **'Board view'**
+  String get scanOrientation;
+
+  /// No description provided for @scanWhiteBottom.
+  ///
+  /// In en, this message translates to:
+  /// **'White at the bottom'**
+  String get scanWhiteBottom;
+
+  /// No description provided for @scanBlackBottom.
+  ///
+  /// In en, this message translates to:
+  /// **'Black at the bottom'**
+  String get scanBlackBottom;
+
+  /// No description provided for @scanOrientationHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'This describes the image view, not whose turn it is.'**
+  String get scanOrientationHelp;
+
+  /// No description provided for @scanRecognize.
+  ///
+  /// In en, this message translates to:
+  /// **'Recognize'**
+  String get scanRecognize;
+
+  /// No description provided for @scanWorking.
+  ///
+  /// In en, this message translates to:
+  /// **'Processing… You can go back to cancel.'**
+  String get scanWorking;
+
+  /// No description provided for @scanReview.
+  ///
+  /// In en, this message translates to:
+  /// **'Review the position (White at the bottom). Tap a square to change its piece.'**
+  String get scanReview;
+
+  /// No description provided for @scanEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'Empty'**
+  String get scanEmpty;
+
+  /// No description provided for @scanCopy.
+  ///
+  /// In en, this message translates to:
+  /// **'Copy piece placement'**
+  String get scanCopy;
+
+  /// No description provided for @scanCopied.
+  ///
+  /// In en, this message translates to:
+  /// **'Piece placement copied'**
+  String get scanCopied;
+
+  /// No description provided for @scanConfigurationError.
+  ///
+  /// In en, this message translates to:
+  /// **'Configure BOARDSNAP_URL with the server address before starting the app.'**
+  String get scanConfigurationError;
+
+  /// No description provided for @scanBoardNotFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No supported complete board was found. Try a clearer image with the whole board visible.'**
+  String get scanBoardNotFound;
+
+  /// No description provided for @scanImageError.
+  ///
+  /// In en, this message translates to:
+  /// **'The image could not be processed. Choose a valid PNG or JPEG with a complete virtual board.'**
+  String get scanImageError;
+
+  /// No description provided for @scanSizeError.
+  ///
+  /// In en, this message translates to:
+  /// **'The image exceeds 20 MiB. Choose a smaller image.'**
+  String get scanSizeError;
+
+  /// No description provided for @scanTimeout.
+  ///
+  /// In en, this message translates to:
+  /// **'The server took too long. Try again.'**
+  String get scanTimeout;
+
+  /// No description provided for @scanNetworkError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not reach BoardSnap. Check your connection and server address, then try again.'**
+  String get scanNetworkError;
+
+  /// No description provided for @scanResponseError.
+  ///
+  /// In en, this message translates to:
+  /// **'BoardSnap returned an unexpected response. Check that the server uses the supported contract.'**
+  String get scanResponseError;
+
+  /// No description provided for @scanPickerError.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not open the image. Check photo access and try again.'**
+  String get scanPickerError;
+
+  /// No description provided for @scanServerError.
+  ///
+  /// In en, this message translates to:
+  /// **'BoardSnap could not process the request. Try again later.'**
+  String get scanServerError;
 }
 
 class _AppLocalizationsDelegate

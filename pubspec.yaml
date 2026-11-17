@@ -1,5 +1,5 @@
 name: chess_scanner
-description: "Flutter chess scanner for digital boards and printed diagrams, designed for on-device recognition, camera capture and FEN export."
+description: "Flutter client for BoardSnap virtual chessboard recognition and position review."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
@@ -38,6 +38,8 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
+  http: ^1.6.0
+  image_picker: ^1.2.4
 
 dev_dependencies:
   flutter_test:

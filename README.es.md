@@ -2,128 +2,77 @@
 
 [English](README.md) | Español
 
-Aplicación Flutter para reconocer posiciones de ajedrez en tableros digitales y
-diagramas impresos, con **inferencia en el dispositivo** y exportación FEN como
-objetivo del producto.
+Cliente Flutter de **BoardSnap** para Android, iOS y web. Permite importar una
+captura o fotografía de un tablero virtual, indicar modo y orientación, reconocer
+la posición en el servidor Python, corregir cualquier casilla y copiar la
+colocación de piezas. Incluye interfaz en inglés y español.
 
-En móvil, la experiencia prevista es similar a escanear un código QR: apuntar la
-cámara al tablero, esperar una lectura nítida y estable, y revisar la posición.
-Las capturas y las imágenes de diagramas importadas utilizarán el mismo flujo de
-reconocimiento. Los tableros físicos con piezas tridimensionales quedan fuera del
-alcance.
+Necesita conexión con BoardSnap. Solo se sube la imagen al pulsar Reconocer.
+El reconocimiento fotográfico sigue siendo experimental. No incluye tableros
+físicos 3D, diagramas impresos, reconocimiento sin conexión, cámara en directo ni
+exportación de FEN completo. No contiene pesos del modelo.
 
-## Estado actual
+## Probar en local
 
-Este repositorio contiene:
+En el repositorio **boardsnap**, con el extra HTTP y los modelos instalados:
 
-- La estructura base de Flutter para Android, iOS y web.
-- Una pantalla inicial en español e inglés que describe el nuevo flujo.
-- Selección de idioma guardada localmente.
-- Una prueba básica de la interfaz y documentación de arquitectura e integración
-  del modelo.
-
-**La importación de imágenes, la captura con cámara, la detección del tablero,
-la inferencia, la corrección y la exportación FEN todavía no están implementadas.**
-Las acciones de la pantalla inicial están desactivadas y se indica que están en
-desarrollo. Todavía no se incluye ningún modelo entrenado ni entorno de ejecución
-para inferencia.
-
-## Enfoque de reconocimiento
-
-El plan anterior de pedir al usuario que etiquetara piezas de referencia y guardar
-plantillas visuales se ha sustituido por un modelo entrenado en otro proyecto.
-
-- El entrenamiento y la preparación de datos se realizan fuera de esta app.
-- La app incluirá un modelo versionado y ejecutará el reconocimiento localmente.
-- El usuario no tendrá que enseñarle cada pieza antes de su primer escaneo.
-- Las correcciones manuales modificarán la posición actual; no reentrenarán
-  silenciosamente el modelo ni subirán imágenes.
-- El reconocimiento debe funcionar sin servidor ni cuenta. Abrir una web externa
-  de análisis será una acción opcional e independiente que requiere conexión.
-
-El flujo previsto es:
-
-```text
-Imagen importada / fotograma seleccionado de la cámara
-  -> localizar el tablero (primero mediante recorte manual)
-  -> corregir la perspectiva
-  -> extraer 64 casillas en orden de imagen
-  -> clasificar cada casilla localmente entre 13 clases
-  -> revisar las casillas dudosas y confirmar la orientación
-  -> confirmar los metadatos de la posición y exportar FEN
+```bash
+.venv/bin/boardsnap-http --config data/manifests/local-trial-v1.json --model-root . --host 127.0.0.1 --port 8000 --allow-origin http://127.0.0.1:8080
 ```
 
-El escaneo con cámara también comprobará el encuadre, la nitidez, la estabilidad
-del tablero y el acuerdo entre lecturas sucesivas antes de capturar.
-La confianza es una puntuación del modelo, no una garantía de acierto.
-
-## Proyectos de la app y del modelo
-
-| Este repositorio | Proyecto de IA independiente |
-| --- | --- |
-| Interfaz Flutter, importación y cámara | Preparación y procedencia de los datos |
-| Encuadre, normalización y extracción de casillas | Entrenamiento y evaluación del modelo |
-| Integración de la ejecución local y revisión | Modelo exportado, metadatos y ejemplos de referencia |
-| Orientación, FEN y ajustes locales | Mediciones de rendimiento y comandos de entrenamiento reproducibles |
-
-El primer modelo propuesto para móvil es un clasificador compacto en formato
-`.tflite`. El entorno de ejecución, las dimensiones de los tensores y la
-cuantización deben validarse con un modelo real antes de añadir dependencias.
-La web sigue siendo una plataforma objetivo, pero necesita su propia integración
-de ejecución local y validación de la caché de recursos; el arranque del sitio
-sin conexión todavía no está implementado ni garantizado.
-
-El contrato compartido está disponible en
-[español](docs/es/MODEL_CONTRACT.md) e
-[inglés](docs/en/MODEL_CONTRACT.md).
-
-## Hitos de desarrollo
-
-1. Crear el prototipo del clasificador independiente y evaluar estilos visuales
-   no vistos durante el entrenamiento.
-2. Importar/recortar una imagen estática, ejecutar el modelo exportado en un móvil
-   real, revisar el tablero y exportar FEN.
-3. Añadir localización automática del tablero y corrección de perspectiva.
-4. Añadir vista previa de cámara, reconocimiento de fotogramas seleccionados
-   y captura automática estable.
-5. Validar la integración en iOS/web, el funcionamiento sin conexión y una mayor
-   variedad de diagramas.
-
-El entrenamiento y la interfaz de importación pueden avanzar de forma independiente
-siguiendo el contrato documentado. Hay que medir la precisión del modelo con
-ejemplos reales antes de afirmar que un tipo de imagen está soportado.
-
-## Desarrollo
-
-Con Flutter instalado y el comando `flutter` disponible en `PATH`, ejecutar estos
-comandos desde la raíz del repositorio:
+En **chess-scanner**, desde otra terminal:
 
 ```bash
 flutter pub get
+flutter run -d chrome --web-hostname 127.0.0.1 --web-port 8080 --dart-define=BOARDSNAP_URL=http://127.0.0.1:8000
+```
+
+Elegir imagen → indicar captura/fotografía → blancas/negras abajo → Reconocer →
+revisar. El resultado se muestra siempre con blancas abajo. Toca una casilla para
+cambiar la pieza. Copiar devuelve únicamente colocación, no un FEN completo.
+Si un nuevo intento falla, se conserva la posición revisada.
+
+La URL base no debe incluir `/v1/recognize`. Si falta, se muestra un error de
+configuración. En el emulador Android usa `http://10.0.2.2:8000` en debug. En un
+móvil físico utiliza una dirección accesible: `localhost` representa el propio
+teléfono. En iOS ya está incluida la descripción de acceso a la fototeca; utiliza
+HTTPS con certificado de confianza. No se han añadido excepciones ATS generales.
+
+HTTP se admite para pruebas **debug** (permiso Android limitado a debug). En
+release se exige HTTPS. Web necesita certificado de confianza y CORS para su
+origen exacto. La app no desactiva la validación de certificados. El despliegue,
+la autenticación y los límites de acceso del servidor son tareas aparte.
+
+## Comprobaciones
+
+```bash
 flutter gen-l10n
 flutter analyze
 flutter test
-flutter run -d chrome
+flutter build web --dart-define=BOARDSNAP_URL=https://TU-SERVIDOR
 ```
 
-Usar `flutter run` con un móvil conectado para probar en el dispositivo.
-La interfaz y la prueba básica actuales no permiten determinar el rendimiento
-de la inferencia.
+Comparación opcional con CLI y servidor reales, usando las imágenes de desarrollo
+existentes en BoardSnap y con el servidor arrancado:
 
-## Estructura y planificación
+```bash
+flutter test test/boardsnap_live_test.dart --dart-define=BOARDSNAP_LIVE_URL=http://127.0.0.1:8000 --dart-define=BOARDSNAP_REPO=/home/nico/code/github/boardsnap
+```
 
-- `lib/app/`: inicio, tema, preferencias de idioma y localización generada.
-- `lib/features/home/`: pantalla inicial actual.
-- `test/`: pruebas de Flutter.
+Sin ambas variables se omiten esas pruebas. Comparan una captura y un fallo de
+detección fotográfica con la CLI; son regresiones, no evaluación independiente.
+Quedan las comprobaciones del selector nativo, permisos y conexión en dispositivos
+Android/iOS y navegador real.
 
-La documentación está organizada por idioma, con documentos equivalentes
-en cada carpeta:
+## Estructura
 
-| Documento | Español | Inglés |
-| --- | --- | --- |
-| Arquitectura | [Arquitectura](docs/es/ARCHITECTURE.md) | [Arquitectura en inglés](docs/en/ARCHITECTURE.md) |
-| Contrato del modelo | [Contrato del modelo](docs/es/MODEL_CONTRACT.md) | [Contrato en inglés](docs/en/MODEL_CONTRACT.md) |
-| Plan de desarrollo | [Plan de desarrollo](docs/es/ROADMAP.md) | [Plan en inglés](docs/en/ROADMAP.md) |
+- `lib/app/`: inicio, tema, idioma y traducciones ARB/Dart generadas.
+- `lib/features/home/`: entrada al flujo.
+- `lib/features/scan/data/`: cliente HTTP.
+- `lib/features/scan/domain/`: colocación canónica.
+- `lib/features/scan/presentation/`: importación, opciones y revisión.
+- `test/`: pruebas del cliente, widgets y servicio real opcional.
 
-Editar `lib/app/l10n/app_en.arb` y `app_es.arb`, y ejecutar `flutter gen-l10n`
-para regenerar los archivos Dart de localización.
+Documentación: [arquitectura](docs/es/ARCHITECTURE.md),
+[contrato HTTP](docs/es/MODEL_CONTRACT.md), [hoja de ruta](docs/es/ROADMAP.md).
+Edita los ARB y ejecuta `flutter gen-l10n`; no edites traducciones generadas.

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../app/locale/app_locale_controller.dart';
+import '../../scan/presentation/scan_page.dart';
 import '../../../app/l10n/app_localizations.dart';
 
 class HomePage extends StatelessWidget {
@@ -74,7 +75,9 @@ class HomePage extends StatelessWidget {
               ),
               const SizedBox(height: 12),
               OutlinedButton.icon(
-                onPressed: null,
+                onPressed: () => Navigator.of(context).push(
+                  MaterialPageRoute<void>(builder: (_) => const ScanPage()),
+                ),
                 icon: const Icon(Icons.image_outlined),
                 label: Text(localizations.homeImportAction),
               ),
