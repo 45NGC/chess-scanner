@@ -36,7 +36,7 @@ class _ChessScannerAppState extends State<ChessScannerApp> {
           debugShowCheckedModeBanner: false,
           locale: _localeController.locale,
           onGenerateTitle: (context) => AppLocalizations.of(context)!.appTitle,
-          theme: AppTheme.light(),
+          theme: AppTheme.dark(),
           supportedLocales: AppLocalizations.supportedLocales,
           localizationsDelegates: AppLocalizations.localizationsDelegates,
           home: HomePage(localeController: _localeController),
