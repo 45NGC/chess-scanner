@@ -14,6 +14,6 @@ void main() {
 
     expect(find.text('Chess Scanner'), findsOneWidget);
     expect(find.text('Choose image'), findsOneWidget);
-    expect(find.text('Scan with camera'), findsOneWidget);
+    expect(find.text('Take a photo'), findsOneWidget);
   });
 }

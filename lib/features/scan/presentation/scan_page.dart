@@ -1,29 +1,37 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../../app/l10n/app_localizations.dart';
 import '../data/boardsnap_client.dart';
+import '../data/scan_image_picker.dart';
 import '../domain/piece_placement.dart';
 
 class ScanPage extends StatefulWidget {
-  const ScanPage({super.key, this.client, this.pickImage});
+  const ScanPage({
+    super.key,
+    this.client,
+    this.imagePicker,
+    this.initialSource = ImageSource.gallery,
+  });
   final BoardSnapClient? client;
-  final Future<XFile?> Function()? pickImage;
+  final ScanImagePicker? imagePicker;
+  final ImageSource initialSource;
   @override
   State<ScanPage> createState() => _ScanPageState();
 }
 
 class _ScanPageState extends State<ScanPage> {
   late final BoardSnapClient _client;
+  late final ScanImagePicker _imagePicker;
+  ImageSource? _source;
   Uint8List? _bytes;
   String _filename = '';
   ScanInputType _inputType = ScanInputType.digital;
   BoardOrientation _orientation = BoardOrientation.whiteBottom;
   List<String>? _squares;
   String? _error;
-  bool _busy = false;
+  bool _busy = true;
   static const _glyphs = {
     'K': '♔',
     'Q': '♕',
@@ -45,29 +53,47 @@ class _ScanPageState extends State<ScanPage> {
     _client =
         widget.client ??
         BoardSnapClient(baseUrl: const String.fromEnvironment('BOARDSNAP_URL'));
-    _recoverImage();
+    _imagePicker = widget.imagePicker ?? ScanImagePicker();
+    if (widget.initialSource == ImageSource.camera) {
+      _inputType = ScanInputType.photo;
+    }
+    WidgetsBinding.instance.addPostFrameCallback((_) => _initialize());
   }
 
-  Future<void> _recoverImage() async {
-    if (widget.pickImage != null ||
-        kIsWeb ||
-        defaultTargetPlatform != TargetPlatform.android) {
-      return;
-    }
+  Future<void> _initialize() async {
+    if (!mounted) return;
+    var recovered = false;
     try {
-      final response = await ImagePicker().retrieveLostData();
-      if (!mounted || response.isEmpty) return;
-      if (response.files?.isNotEmpty ?? false) {
-        await _load(response.files!.first);
-      } else if (response.exception != null) {
-        setState(() => _error = 'PICKER');
+      final image = await _imagePicker.recover();
+      if (!mounted) return;
+      if (image != null) {
+        recovered = true;
+        await _load(image.file, image.source);
       }
     } on BoardSnapException catch (error) {
+      recovered = true;
       if (mounted) setState(() => _error = error.code);
+    } on PlatformException catch (error) {
+      recovered = true;
+      if (mounted) setState(() => _error = _pickerError(error));
     } catch (_) {
+      recovered = true;
       if (mounted) setState(() => _error = 'PICKER');
+    } finally {
+      if (mounted) setState(() => _busy = false);
+    }
+    if (mounted && !recovered && widget.initialSource == ImageSource.camera) {
+      await _choose(ImageSource.camera);
     }
   }
+
+  String _pickerError(PlatformException error) => switch (error.code) {
+    'camera_access_denied' ||
+    'camera_access_denied_without_prompt' ||
+    'camera_access_restricted' => 'CAMERA_PERMISSION',
+    'no_available_camera' || 'invalid_source' => 'CAMERA_UNAVAILABLE',
+    _ => 'PICKER',
+  };
 
   @override
   void dispose() {
@@ -75,7 +101,7 @@ class _ScanPageState extends State<ScanPage> {
     super.dispose();
   }
 
-  Future<void> _load(XFile file) async {
+  Future<void> _load(XFile file, ImageSource source) async {
     if (await file.length() > BoardSnapClient.maxImageBytes) {
       throw const BoardSnapException('PAYLOAD_TOO_LARGE');
     }
@@ -85,23 +111,32 @@ class _ScanPageState extends State<ScanPage> {
     setState(() {
       _bytes = bytes;
       _filename = file.name;
+      _source = source;
+      _inputType = source == ImageSource.camera
+          ? ScanInputType.photo
+          : ScanInputType.digital;
       _squares = null;
       _error = null;
     });
   }
 
-  Future<void> _choose() async {
+  Future<void> _choose(ImageSource source) async {
+    if (_busy) return;
+    if (source == ImageSource.camera && !_imagePicker.supportsCamera) {
+      setState(() => _error = 'CAMERA_UNAVAILABLE');
+      return;
+    }
     setState(() {
       _busy = true;
       _error = null;
     });
     try {
-      final file =
-          await (widget.pickImage?.call() ??
-              ImagePicker().pickImage(source: ImageSource.gallery));
-      if (file != null) await _load(file);
+      final file = await _imagePicker.pick(source);
+      if (file != null) await _load(file, source);
     } on BoardSnapException catch (error) {
       if (mounted) setState(() => _error = error.code);
+    } on PlatformException catch (error) {
+      if (mounted) setState(() => _error = _pickerError(error));
     } catch (_) {
       if (mounted) setState(() => _error = 'PICKER');
     } finally {
@@ -142,6 +177,8 @@ class _ScanPageState extends State<ScanPage> {
     'NETWORK' => l.scanNetworkError,
     'INVALID_RESPONSE' => l.scanResponseError,
     'PICKER' => l.scanPickerError,
+    'CAMERA_PERMISSION' => l.scanCameraPermission,
+    'CAMERA_UNAVAILABLE' => l.scanCameraUnavailable,
     _ => l.scanServerError,
   };
 
@@ -189,10 +226,23 @@ class _ScanPageState extends State<ScanPage> {
                 Text(l.scanUploadNotice),
                 const SizedBox(height: 16),
                 OutlinedButton.icon(
-                  onPressed: _busy ? null : _choose,
+                  onPressed: _busy ? null : () => _choose(ImageSource.gallery),
                   icon: const Icon(Icons.image_outlined),
                   label: Text(l.homeImportAction),
                 ),
+                const SizedBox(height: 8),
+                OutlinedButton.icon(
+                  onPressed: _busy || !_imagePicker.supportsCamera
+                      ? null
+                      : () => _choose(ImageSource.camera),
+                  icon: const Icon(Icons.camera_alt_outlined),
+                  label: Text(
+                    _source == ImageSource.camera && _bytes != null
+                        ? l.scanRetake
+                        : l.homeCameraAction,
+                  ),
+                ),
+                if (!_imagePicker.supportsCamera) Text(l.scanCameraUnavailable),
                 if (_bytes != null) ...[
                   const SizedBox(height: 12),
                   Image.memory(
@@ -204,6 +254,7 @@ class _ScanPageState extends State<ScanPage> {
                   const SizedBox(height: 16),
                 ],
                 DropdownButtonFormField<ScanInputType>(
+                  key: ValueKey(_inputType),
                   initialValue: _inputType,
                   decoration: InputDecoration(labelText: l.scanInputType),
                   items: [

@@ -1,12 +1,12 @@
 # Roadmap
 
-Implemented: English/Spanish shell, image import, BoardSnap HTTP recognition,
+Implemented: English/Spanish shell, Android/iOS still-photo capture, image import, BoardSnap HTTP recognition,
 explicit screenshot/photo mode and orientation, editable position and placement copy.
 
 Next:
 1. Test real images on Android, iOS and web against the configured backend.
 2. Deploy BoardSnap with HTTPS, CORS, access controls and capacity limits.
-3. Add camera capture and the full board editor/FEN metadata workflow.
+3. Complete the board editor/FEN metadata workflow and integrate Stockfish analysis.
 4. Add history, export/analysis integration and UX improvements as needed.
 5. Revisit offline inference and printed diagrams as separate future work.
 

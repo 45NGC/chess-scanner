@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+
+import '../../scan/data/scan_image_picker.dart';
 
 import '../../../app/locale/app_locale_controller.dart';
 import '../../scan/presentation/scan_page.dart';
@@ -69,10 +72,22 @@ class HomePage extends StatelessWidget {
               ),
               const SizedBox(height: 16),
               FilledButton.icon(
-                onPressed: null,
+                onPressed: ScanImagePicker.nativeCameraSupported
+                    ? () => Navigator.of(context).push(
+                        MaterialPageRoute<void>(
+                          builder: (_) =>
+                              const ScanPage(initialSource: ImageSource.camera),
+                        ),
+                      )
+                    : null,
                 icon: const Icon(Icons.camera_alt_outlined),
                 label: Text(localizations.homeCameraAction),
               ),
+              if (!ScanImagePicker.nativeCameraSupported)
+                Padding(
+                  padding: const EdgeInsets.only(top: 8),
+                  child: Text(localizations.scanCameraUnavailable),
+                ),
               const SizedBox(height: 12),
               OutlinedButton.icon(
                 onPressed: () => Navigator.of(context).push(

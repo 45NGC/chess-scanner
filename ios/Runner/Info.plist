@@ -24,6 +24,8 @@
 	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Take a photo of a virtual chessboard to review and recognize with BoardSnap.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Choose a chessboard image to send to BoardSnap for recognition.</string>
 	<key>LSRequiresIPhoneOS</key>

@@ -2,7 +2,8 @@
 
 [English](README.md) | Español
 
-Cliente Flutter de **BoardSnap** para Android, iOS y web. Permite importar una
+Cliente Flutter de **BoardSnap** para Android, iOS y web. Permite hacer una foto
+en Android/iOS o importar una
 captura o fotografía de un tablero virtual, indicar modo y orientación, reconocer
 la posición en el servidor Python, corregir cualquier casilla y copiar la
 colocación de piezas. Incluye interfaz en inglés y español.
@@ -42,6 +43,30 @@ HTTP se admite para pruebas **debug** (permiso Android limitado a debug). En
 release se exige HTTPS. Web necesita certificado de confianza y CORS para su
 origen exacto. La app no desactiva la validación de certificados. El despliegue,
 la autenticación y los límites de acceso del servidor son tareas aparte.
+
+## Hacer una foto (Android/iOS)
+
+Pulsa **Hacer una foto** en inicio para abrir la cámara nativa. Haz y acepta la
+foto y después revisa su vista previa. **Repetir foto** abre de nuevo la cámara;
+cancelar conserva la imagen y el tablero revisado. Las fotos nuevas seleccionan
+el modo **Fotografía de una pantalla** automáticamente. Indica la orientación y
+pulsa **Reconocer** para subirla. Hacer o previsualizar una foto no la envía.
+
+Si no hay cámara o el permiso está denegado/restringido se muestra un error;
+puedes reintentar o elegir una imagen guardada. Si el permiso está bloqueado,
+permítelo en los ajustes del dispositivo. iOS incluye `NSCameraUsageDescription`
+y el permiso de fototeca existente; no se pide micrófono para fotos. Android usa
+la cámara externa mediante image_picker y no necesita añadir CAMERA ni permisos
+de almacenamiento. Solo se conserva localmente el origen mientras el selector
+está activo, para recuperar la imagen y su modo al volver a abrir reconocimiento
+si Android reinicia el proceso. Las fotos quedan en la caché del selector; esta
+función no crea una galería permanente ni un historial.
+
+La cámara de este flujo está disponible en Android/iOS. En web/escritorio sigue
+la importación; no se incluye cámara en directo del navegador. Las cámaras y
+permisos de un emulador pueden diferir del teléfono real. Sigue pendiente probar
+el flujo nativo en dispositivos. Tras cambiar configuración o permisos nativos,
+reinicia la app; hot reload no recompila la configuración iOS.
 
 ## Comprobaciones
 

@@ -5,6 +5,7 @@ flujo de reconocimiento.
 
 ```text
 features/scan/
+  data/scan_image_picker.dart      cámara/galería y recuperación de origen Android
   data/boardsnap_client.dart       HTTP multipart, plazos, errores y validación
   domain/piece_placement.dart      lectura y generación de colocación canónica
   presentation/scan_page.dart      selección, vista previa, opciones y revisión
@@ -17,7 +18,9 @@ sube la imagen. Hay una petición activa como máximo y salir cierra el cliente.
 BoardSnap realiza detección, perspectiva, segmentación, orientación y clasificación.
 Flutter gestiona selección de modo/vista, correcciones y copia. El tablero revisado
 siempre sigue el orden a8–h1. No hay modelos locales, confianza por casilla ni
-etiquetado de piezas de referencia. Cámara en directo y metadatos FEN quedan pendientes.
+etiquetado de piezas de referencia. Hacer fotos está implementado en Android/iOS; el escaneo continuo y los
+metadatos FEN siguen pendientes. Las fotos seleccionan modo fotografía y
+se previsualizan antes de cualquier envío explícito.
 
 `flutter analyze` y `flutter test` comprueban contrato multipart, errores, tiempos,
 respuestas inválidas, orden de casillas, importación, edición y conservación de

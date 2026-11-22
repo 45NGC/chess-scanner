@@ -2,12 +2,12 @@
   "@@locale": "en",
   "appTitle": "Chess Scanner",
   "homeHeadline": "Scan a chess position",
-  "homeDescription": "Choose a screenshot or a phone photo of a virtual chessboard. Recognize the position with BoardSnap and review the pieces.",
+  "homeDescription": "Take a photo of a virtual chessboard or choose an existing image. Recognize the position with BoardSnap and review the pieces.",
   "homePrivacyDescription": "Recognition requires an internet connection and sends the selected image to your configured BoardSnap server.",
-  "homeDevelopmentStatus": "Image import and piece review are available. Live camera scanning, complete FEN export and printed diagrams are not available yet.",
-  "homeCameraAction": "Scan with camera",
+  "homeDevelopmentStatus": "Photo capture on Android/iOS, image import and piece review are available. Live scanning, complete FEN export and printed diagrams are not available yet.",
+  "homeCameraAction": "Take a photo",
   "homeImportAction": "Choose image",
-  "homeNextStep": "Choose an image, indicate its type and which side is at the bottom, then review the recognized board.",
+  "homeNextStep": "Take a photo or choose an image, indicate which side is at the bottom, then recognize and review the position.",
   "languageMenuTooltip": "Change language",
   "languageEnglish": "English",
   "languageSpanish": "Spanish",
@@ -34,5 +34,8 @@
   "scanNetworkError": "Could not reach BoardSnap. Check your connection and server address, then try again.",
   "scanResponseError": "BoardSnap returned an unexpected response. Check that the server uses the supported contract.",
   "scanPickerError": "Could not open the image. Check photo access and try again.",
-  "scanServerError": "BoardSnap could not process the request. Try again later."
+  "scanServerError": "BoardSnap could not process the request. Try again later.",
+  "scanRetake": "Retake photo",
+  "scanCameraPermission": "Camera access is denied or restricted. Allow access in your device settings, or choose an existing image.",
+  "scanCameraUnavailable": "Taking photos is available in the Android and iOS app when a camera is available. You can choose an existing image instead."
 }

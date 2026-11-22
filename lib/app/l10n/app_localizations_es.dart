@@ -16,7 +16,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get homeDescription =>
-      'Elige una captura o una fotografía de un tablero virtual. Reconoce la posición con BoardSnap y revisa las piezas.';
+      'Haz una foto de un tablero virtual o elige una imagen guardada. Reconoce la posición con BoardSnap y revisa las piezas.';
 
   @override
   String get homePrivacyDescription =>
@@ -24,17 +24,17 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get homeDevelopmentStatus =>
-      'Ya puedes importar imágenes y revisar las piezas. La cámara en directo, la exportación de FEN completo y los diagramas impresos siguen pendientes.';
+      'Ya puedes hacer fotos en Android/iOS, importar imágenes y revisar las piezas. El escaneo en directo, el FEN completo y los diagramas impresos siguen pendientes.';
 
   @override
-  String get homeCameraAction => 'Escanear con cámara';
+  String get homeCameraAction => 'Hacer una foto';
 
   @override
   String get homeImportAction => 'Elegir imagen';
 
   @override
   String get homeNextStep =>
-      'Elige una imagen, indica su tipo y qué color está abajo, y revisa el tablero reconocido.';
+      'Haz una foto o elige una imagen, indica qué color está abajo y reconoce y revisa la posición.';
 
   @override
   String get languageMenuTooltip => 'Cambiar idioma';
@@ -128,4 +128,15 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get scanServerError =>
       'BoardSnap no pudo procesar la solicitud. Inténtalo más tarde.';
+
+  @override
+  String get scanRetake => 'Repetir foto';
+
+  @override
+  String get scanCameraPermission =>
+      'El acceso a la cámara está denegado o restringido. Permítelo en los ajustes del dispositivo o elige una imagen guardada.';
+
+  @override
+  String get scanCameraUnavailable =>
+      'Puedes hacer fotos desde la app Android o iOS si el dispositivo tiene cámara. También puedes elegir una imagen guardada.';
 }

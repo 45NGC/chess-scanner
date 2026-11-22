@@ -16,7 +16,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get homeDescription =>
-      'Choose a screenshot or a phone photo of a virtual chessboard. Recognize the position with BoardSnap and review the pieces.';
+      'Take a photo of a virtual chessboard or choose an existing image. Recognize the position with BoardSnap and review the pieces.';
 
   @override
   String get homePrivacyDescription =>
@@ -24,17 +24,17 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get homeDevelopmentStatus =>
-      'Image import and piece review are available. Live camera scanning, complete FEN export and printed diagrams are not available yet.';
+      'Photo capture on Android/iOS, image import and piece review are available. Live scanning, complete FEN export and printed diagrams are not available yet.';
 
   @override
-  String get homeCameraAction => 'Scan with camera';
+  String get homeCameraAction => 'Take a photo';
 
   @override
   String get homeImportAction => 'Choose image';
 
   @override
   String get homeNextStep =>
-      'Choose an image, indicate its type and which side is at the bottom, then review the recognized board.';
+      'Take a photo or choose an image, indicate which side is at the bottom, then recognize and review the position.';
 
   @override
   String get languageMenuTooltip => 'Change language';
@@ -127,4 +127,15 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get scanServerError =>
       'BoardSnap could not process the request. Try again later.';
+
+  @override
+  String get scanRetake => 'Retake photo';
+
+  @override
+  String get scanCameraPermission =>
+      'Camera access is denied or restricted. Allow access in your device settings, or choose an existing image.';
+
+  @override
+  String get scanCameraUnavailable =>
+      'Taking photos is available in the Android and iOS app when a camera is available. You can choose an existing image instead.';
 }

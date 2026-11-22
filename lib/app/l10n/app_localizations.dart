@@ -113,7 +113,7 @@ abstract class AppLocalizations {
   /// No description provided for @homeDescription.
   ///
   /// In en, this message translates to:
-  /// **'Choose a screenshot or a phone photo of a virtual chessboard. Recognize the position with BoardSnap and review the pieces.'**
+  /// **'Take a photo of a virtual chessboard or choose an existing image. Recognize the position with BoardSnap and review the pieces.'**
   String get homeDescription;
 
   /// No description provided for @homePrivacyDescription.
@@ -125,13 +125,13 @@ abstract class AppLocalizations {
   /// No description provided for @homeDevelopmentStatus.
   ///
   /// In en, this message translates to:
-  /// **'Image import and piece review are available. Live camera scanning, complete FEN export and printed diagrams are not available yet.'**
+  /// **'Photo capture on Android/iOS, image import and piece review are available. Live scanning, complete FEN export and printed diagrams are not available yet.'**
   String get homeDevelopmentStatus;
 
   /// No description provided for @homeCameraAction.
   ///
   /// In en, this message translates to:
-  /// **'Scan with camera'**
+  /// **'Take a photo'**
   String get homeCameraAction;
 
   /// No description provided for @homeImportAction.
@@ -143,7 +143,7 @@ abstract class AppLocalizations {
   /// No description provided for @homeNextStep.
   ///
   /// In en, this message translates to:
-  /// **'Choose an image, indicate its type and which side is at the bottom, then review the recognized board.'**
+  /// **'Take a photo or choose an image, indicate which side is at the bottom, then recognize and review the position.'**
   String get homeNextStep;
 
   /// No description provided for @languageMenuTooltip.
@@ -307,6 +307,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'BoardSnap could not process the request. Try again later.'**
   String get scanServerError;
+
+  /// No description provided for @scanRetake.
+  ///
+  /// In en, this message translates to:
+  /// **'Retake photo'**
+  String get scanRetake;
+
+  /// No description provided for @scanCameraPermission.
+  ///
+  /// In en, this message translates to:
+  /// **'Camera access is denied or restricted. Allow access in your device settings, or choose an existing image.'**
+  String get scanCameraPermission;
+
+  /// No description provided for @scanCameraUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Taking photos is available in the Android and iOS app when a camera is available. You can choose an existing image instead.'**
+  String get scanCameraUnavailable;
 }
 
 class _AppLocalizationsDelegate

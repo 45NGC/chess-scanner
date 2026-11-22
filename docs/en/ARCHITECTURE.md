@@ -5,6 +5,7 @@
 
 ```text
 features/scan/
+  data/scan_image_picker.dart      native camera/gallery, Android source recovery
   data/boardsnap_client.dart       multipart HTTP, deadlines, errors, validation
   domain/piece_placement.dart      canonical placement decoding/encoding
   presentation/scan_page.dart      picker, preview, mode/view controls, review
@@ -19,7 +20,9 @@ BoardSnap owns detection, perspective correction, segmentation, orientation and
 classification. The app owns mode/view selection, user corrections and export.
 No models, per-square confidence, local recognition or reference-piece labeling
 are part of this integration. The review board uses canonical a8-to-h1 order.
-Full FEN metadata and live camera capture remain future modules.
+Still-photo capture is implemented on Android/iOS; full FEN metadata and
+continuous live scanning remain future work. Camera images default to photo
+mode and are previewed before any explicit upload.
 
 Run `flutter analyze` and `flutter test`. Tests cover multipart fields/bytes,
 structured errors, malformed responses, timeout, square order, import, editing,
