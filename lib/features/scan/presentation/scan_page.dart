@@ -13,10 +13,12 @@ class ScanPage extends StatefulWidget {
         this.client,
         this.imagePicker,
         this.initialSource = ImageSource.gallery,
+        this.openPickerOnStart = false,
     });
     final BoardSnapClient? client;
     final ScanImagePicker? imagePicker;
     final ImageSource initialSource;
+    final bool openPickerOnStart;
     @override
     State<ScanPage> createState() => _ScanPageState();
 }
@@ -27,7 +29,7 @@ class _ScanPageState extends State<ScanPage> {
     ImageSource? _source;
     Uint8List? _bytes;
     String _filename = '';
-    ScanInputType _inputType = ScanInputType.digital;
+    ScanInputType? _inputType;
     BoardOrientation _orientation = BoardOrientation.whiteBottom;
     List<String>? _squares;
     String? _error;
@@ -86,8 +88,9 @@ class _ScanPageState extends State<ScanPage> {
         finally {
             if (mounted) setState(() => _busy = false);
         }
-        if (mounted && !recovered && widget.initialSource == ImageSource.camera) {
-            await _choose(ImageSource.camera);
+        if (mounted && !recovered &&
+            (widget.openPickerOnStart || widget.initialSource == ImageSource.camera)) {
+            await _choose(widget.initialSource);
         }
     }
 
@@ -118,7 +121,7 @@ class _ScanPageState extends State<ScanPage> {
             _source = source;
             _inputType = source == ImageSource.camera
                 ? ScanInputType.photo
-                : ScanInputType.digital;
+                : null;
             _squares = null;
             _error = null;
         }
@@ -156,7 +159,8 @@ class _ScanPageState extends State<ScanPage> {
 
     Future<void> _recognize() async {
         final bytes = _bytes;
-        if (bytes == null || _busy) return;
+        final inputType = _inputType;
+        if (bytes == null || inputType == null || _busy) return;
         setState(() {
             _busy = true;
             _error = null;
@@ -166,7 +170,7 @@ class _ScanPageState extends State<ScanPage> {
             final placement = await _client.recognize(
                 bytes: bytes,
                 filename: _filename,
-                inputType: _inputType,
+                inputType: inputType,
                 orientation: _orientation,
             );
             if (mounted) setState(() => _squares = decodePiecePlacement(placement));
@@ -270,6 +274,7 @@ class _ScanPageState extends State<ScanPage> {
                                 DropdownButtonFormField<ScanInputType>(
                                     key: ValueKey(_inputType),
                                     initialValue: _inputType,
+                                    hint: Text(l.scanChooseInputType),
                                     decoration: InputDecoration(labelText: l.scanInputType),
                                     items: [
                                         DropdownMenuItem(
@@ -307,7 +312,8 @@ class _ScanPageState extends State<ScanPage> {
                                 Text(l.scanOrientationHelp),
                                 const SizedBox(height: 16),
                                 FilledButton(
-                                    onPressed: _busy || _bytes == null ? null : _recognize,
+                                    onPressed: _busy || _bytes == null || _inputType == null
+                                        ? null : _recognize,
                                     child: Text(l.scanRecognize),
                                 ),
                                 if (_busy) ...[

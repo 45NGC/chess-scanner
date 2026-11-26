@@ -13,6 +13,7 @@
   "languageSpanish": "Spanish",
   "scanTitle": "Recognize with BoardSnap",
   "scanUploadNotice": "Pressing Recognize sends this image to the configured BoardSnap server. Phone photographs are experimental; review every piece.",
+  "scanChooseInputType": "Select screenshot or phone photo",
   "scanInputType": "Image type",
   "scanDigital": "Screenshot",
   "scanPhoto": "Phone photo of a screen",

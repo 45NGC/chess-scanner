@@ -44,6 +44,13 @@ clients require HTTPS. Deployed web clients also need a trusted certificate and
 CORS for their exact origin. The app does not disable certificate validation.
 Backend deployment and authentication/rate limits remain separate work.
 
+Both home actions open their picker directly and then use the same recognition
+screen. For an imported image, explicitly select **Screenshot** or **Phone photo
+of a screen** before recognition is enabled; the app does not infer the type from
+the extension. A new import clears that selection. Camera photos select photo
+mode automatically. Both modes send the chosen White/Black orientation through
+the same HTTP client and display the canonical returned position unchanged.
+
 ## Take a photo (Android/iOS)
 
 Tap **Take a photo** on the home screen to open the native camera. Take and accept

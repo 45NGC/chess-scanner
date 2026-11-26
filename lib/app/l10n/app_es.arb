@@ -13,6 +13,7 @@
   "languageSpanish": "Español",
   "scanTitle": "Reconocer con BoardSnap",
   "scanUploadNotice": "Al pulsar Reconocer se enviará esta imagen al servidor BoardSnap configurado. El modo fotografía es experimental; revisa todas las piezas.",
+  "scanChooseInputType": "Selecciona captura o fotografía",
   "scanInputType": "Tipo de imagen",
   "scanDigital": "Captura de pantalla",
   "scanPhoto": "Fotografía de una pantalla",

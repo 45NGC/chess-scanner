@@ -33,3 +33,13 @@ CORS para el origen de la app. No se siguen redirecciones al subir imágenes.
 El límite de espera es 60 segundos e incluye leer la respuesta, limitada a 64 KiB.
 Salir de la pantalla cierra el cliente; el servidor podría terminar un trabajo
 que ya hubiera recibido. El servidor vuelve a validar imágenes y concurrencia.
+
+## Flujo compartido de imágenes
+
+Cámara y galería utilizan la misma pantalla. Las fotos de cámara seleccionan
+`photo`; las imágenes importadas requieren elegir explícitamente `digital` o
+`photo` antes de enviarlas. Cada nueva importación borra la selección de tipo.
+La extensión no decide el modo. Ambas entradas envían la orientación elegida,
+conservan la colocación canónica recibida y solo suben al pulsar Reconocer.
+Inicio abre el selector correspondiente una sola vez; una imagen recuperada de
+Android se previsualiza sin abrir otro selector. Cancelar no envía peticiones.

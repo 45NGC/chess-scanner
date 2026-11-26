@@ -35,3 +35,13 @@ trusted certificate and CORS for the actual app origin. No redirect is followed
 for image uploads. The request has a 60-second deadline, including reading the
 response; returning from the screen closes the client. Responses are bounded to
 64 KiB. The server independently validates uploads and limits concurrency.
+
+## Shared image flow
+
+Camera and gallery enter the same recognition screen. Camera photos select
+`photo`; imported images require an explicit `digital`/`photo` choice before
+upload. Every new imported image clears the type choice. The file extension does
+not decide the mode. Both paths send the chosen board view, preserve the canonical
+placement returned by the server, and upload only on Recognize. Home actions open
+the appropriate picker once; recovered Android images are previewed instead of
+opening another picker. Cancellation does not issue a recognition request.

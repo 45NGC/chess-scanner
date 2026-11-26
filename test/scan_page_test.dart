@@ -282,6 +282,11 @@ void main() {
             await tester.pumpAndSettle();
             await tester.tap(find.text('Choose image'));
             await tester.pumpAndSettle();
+            await tester.ensureVisible(find.byType(DropdownButtonFormField<ScanInputType>));
+            await tester.tap(find.byType(DropdownButtonFormField<ScanInputType>));
+            await tester.pumpAndSettle();
+            await tester.tap(find.text('Screenshot').last);
+            await tester.pumpAndSettle();
             await tester.ensureVisible(find.text('Recognize'));
             await tester.tap(find.text('Recognize'));
             await tester.pumpAndSettle();

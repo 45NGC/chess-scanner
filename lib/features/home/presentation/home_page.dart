@@ -76,7 +76,10 @@ class HomePage extends StatelessWidget {
                                     ? () => Navigator.of(context).push(
                                         MaterialPageRoute<void>(
                                             builder: (_) =>
-                                            const ScanPage(initialSource: ImageSource.camera),
+                                            const ScanPage(
+                                                initialSource: ImageSource.camera,
+                                                openPickerOnStart: true,
+                                            ),
                                         ),
                                     )
                                     : null,
@@ -91,7 +94,9 @@ class HomePage extends StatelessWidget {
                             const SizedBox(height: 12),
                             OutlinedButton.icon(
                                 onPressed: () => Navigator.of(context).push(
-                                    MaterialPageRoute<void>(builder: (_) => const ScanPage()),
+                                    MaterialPageRoute<void>(
+                                        builder: (_) => const ScanPage(openPickerOnStart: true),
+                                    ),
                                 ),
                                 icon: const Icon(Icons.image_outlined),
                                 label: Text(localizations.homeImportAction),

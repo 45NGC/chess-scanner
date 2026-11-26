@@ -44,6 +44,14 @@ release se exige HTTPS. Web necesita certificado de confianza y CORS para su
 origen exacto. La app no desactiva la validación de certificados. El despliegue,
 la autenticación y los límites de acceso del servidor son tareas aparte.
 
+Ambas acciones de inicio abren directamente su selector y llevan a la misma
+pantalla de reconocimiento. Al importar una imagen, elige explícitamente
+**Captura de pantalla** o **Fotografía de una pantalla** para habilitar Reconocer;
+la extensión no determina el tipo. Una nueva importación borra esa selección.
+Las fotos de cámara seleccionan el modo fotografía automáticamente. Ambos modos
+envían la orientación elegida por el mismo cliente HTTP y muestran la posición
+canónica recibida sin volver a girarla.
+
 ## Hacer una foto (Android/iOS)
 
 Pulsa **Hacer una foto** en inicio para abrir la cámara nativa. Haz y acepta la
